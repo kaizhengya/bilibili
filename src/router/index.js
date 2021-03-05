@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-const chnne = ()=> import('../components/chnne.vue')
 const search = ()=> import ('../views/search.vue')
 
 const routes = [
@@ -8,19 +7,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-	children:[
-		{
-		path: 'chnne/:id',
-		  name: 'chnne',
-		  component:chnne,
-		  children:[{
-			  path:'/list',
-			  name:'list',
-			  component:()=>import('../components/homelist.vue'),
-		  }]
-		},
-		 { path: '/chnne/0', redirect: '/' },
-	]
   },
  
   {

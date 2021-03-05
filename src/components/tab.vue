@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<van-tabs v-model:active="activ" class="topmargin" @change='med(activ)'>
-			<van-tab v-for="(item, i) in title" :key="i" :title="item.title" ></van-tab>
+		<van-tabs v-model:active="activ" class="topmargin" @change='med(activ)' >
+			<van-tab v-for="item in items" :key="item" :title="item" ></van-tab>
 		</van-tabs>
 	</div>
 </template>
@@ -18,53 +18,32 @@
 		useRouter
 	} from 'vue-router'
 	export default {
-		setup() {
+		props:{
+			index:{
+				type:Number,
+				default(){return 0}
+			},
+			items:{
+				type:Object,
+				default(){return {}}
+			}
+		},
+		setup(props) {
 			const route = useRoute()
 			const router = useRouter()
-			let activ = ref(0);
+			let activ = ref(props.index);
+			console.log(props.items);
 			// axios 请求根据传过来的值确定title的内容
-			const title = reactive({
-				title: [{
-						title: "标签1",
-						cont: "标签1"
-					},
-					{
-						title: "标签2",
-						cont: "标签2"
-					},
-					{
-						title: "标签3",
-						cont: "标签3"
-					},
-					{
-						title: "标签4",
-						cont: "标签4"
-					},
-					{
-						title: "标签5",
-						cont: "标签5"
-					},
-					{
-						title: "标签6",
-						cont: "标签6"
-					},
-					{
-						title: "标签6",
-						cont: "标签6"
-					},
-				]
-			})
+		
 			const med =(e)=>{
 				console.log(e);
 			}
-			// 监听路由
-			watch(()=>route.params,(newid)=>{
-				console.log(5154);
-				activ = newid
-			},matchMedia)
+			// 监听上面大类tab变换 此tab回到初始值
+			watch(()=>props.index,()=>{
+				activ.value = 0
+			})
 			return {
 				activ,
-				...toRefs(title),
 				med
 			};
 			

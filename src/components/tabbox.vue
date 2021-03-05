@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<div class="box">
-			<van-tabs v-model:active="active" class="topmargin rigs">
-				<van-tab v-for="(item, i) in data.cont" :key="i" :title="item.title" :to="'/chnne/'+item.id">{{
+			<van-tabs v-model:active="active" class="topmargin rigs" @click='emt(active)'>
+				<van-tab v-for="(item, i) in data.cont" :key="i" :title="item.title">{{
                   item.cont
                 }}</van-tab>
 				<div class="rig">
@@ -18,13 +18,11 @@
 		reactive,
 		ref
 	} from 'vue'
-	import chnne from './chnne.vue'
 	export default {
 		name: 'tabbox',
 		components: {
-			chnne,
 		},
-		setup() {
+		setup(props,{emit}) {
 			let active = ref(0)
 			const data = reactive({
 				cont: [{
@@ -89,9 +87,13 @@
 				console.log(e);
 				console.log(111);
 			}
+			let emt = (e)=>{
+				emit('indx',e)
+			}
 			return {
 				data,
-				active
+				active,
+				emt
 			}
 		}
 	}
